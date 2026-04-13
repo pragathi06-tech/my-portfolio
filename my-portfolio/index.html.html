@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>S. Pragathini | DevOps & AI Engineering Portfolio</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Inter:wght@300;400;600;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        :root {
+            --bg-color: #000000;
+            --accent-purple: #8B5CF6;
+            --accent-blue: #3B82F6;
+            --text-primary: #ffffff;
+            --text-secondary: #94a3b8;
+            --glass-bg: rgba(255, 255, 255, 0.03);
+            --glass-border: rgba(255, 255, 255, 0.08);
+            --glow-purple: rgba(139, 92, 246, 0.2);
+            --glow-blue: rgba(59, 130, 246, 0.2);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-primary);
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
+        /* --- Custom Scrollbar --- */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: var(--bg-color); }
+        ::-webkit-scrollbar-thumb { background: var(--accent-purple); border-radius: 10px; }
+
+        /* --- Background Particles --- */
+        canvas#particles {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            z-index: -1; opacity: 0.6;
+        }
+
+        /* --- Header --- */
+        header {
+            position: fixed; top: 0; left: 0; width: 100%;
+            padding: 1.2rem 5%; z-index: 1000;
+            display: flex; justify-content: space-between; align-items: center;
+            background: rgba(0, 0, 0, 0.6); backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--glass-border);
+        }
+
+        .logo {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.6rem; font-weight: 800;
+            background: linear-gradient(135deg, #fff 0%, var(--accent-purple) 100%);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            text-decoration: none;
+        }
+
+        nav ul { display: flex; list-style: none; gap: 1.8rem; }
+        nav ul li a {
+            text-decoration: none; color: var(--text-secondary);
+            font-weight: 500; font-size: 0.95rem; transition: all 0.3s ease;
+        }
+        nav ul li a:hover { color: var(--accent-purple); text-shadow: 0 0 10px var(--glow-purple); }
+
+        /* --- Hero Section --- */
+        .hero {
+            min-height: 100vh; display: flex; align-items: center;
+            padding: 0 10%; gap: 5%; padding-top: 80px;
+        }
+
+        .hero-left { flex: 1.2; }
+        .hero-right { flex: 0.8; display: flex; justify-content: center; }
+
+        .hero-left h1 {
+            font-family: 'Outfit', sans-serif; font-size: 3.8rem;
+            font-weight: 800; line-height: 1.1; margin-bottom: 1.5rem;
+        }
+
+        .text-gradient {
+            background: linear-gradient(135deg, var(--accent-purple), var(--accent-blue));
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+        }
+
+        .hero-left p {
+            font-size: 1.15rem; color: var(--text-secondary);
+            margin-bottom: 2.5rem; max-width: 600px; line-height: 1.6;
+        }
+
+        .cta-group { display: flex; gap: 1.2rem; }
+        .btn {
+            padding: 0.9rem 1.8rem; border-radius: 50px; font-weight: 600;
+            text-decoration: none; transition: all 0.3s ease;
+            font-size: 0.95rem; display: flex; align-items: center; gap: 8px;
+        }
+        .btn-primary { background: var(--accent-purple); color: white; box-shadow: 0 4px 15px var(--glow-purple); }
+        .btn-outline { border: 1px solid var(--accent-purple); color: var(--text-primary); }
+        .btn:hover { transform: translateY(-5px); box-shadow: 0 10px 25px var(--glow-purple); }
+
+        .profile-frame {
+            position: relative; width: 420px; height: 420px;
+            border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+            background: linear-gradient(135deg, var(--accent-purple), var(--accent-blue));
+            display: flex; justify-content: center; align-items: center;
+            animation: morph 8s infinite alternate ease-in-out;
+            box-shadow: 0 0 60px var(--glow-purple);
+        }
+        .profile-frame img {
+            width: 96%; height: 96%; border-radius: inherit;
+            object-fit: cover; border: 6px solid var(--bg-color);
+        }
+
+        @keyframes morph {
+            0% { border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%; }
+            100% { border-radius: 70% 30% 30% 70% / 70% 70% 30% 30%; }
+        }
+
+        /* --- General Section Styling --- */
+        section { padding: 100px 10% 60px; }
+        .section-title {
+            font-family: 'Outfit', sans-serif; font-size: 2.8rem;
+            font-weight: 800; margin-bottom: 3.5rem; text-align: center;
+        }
+
+        /* --- About Me --- */
+        .about-container {
+            background: var(--glass-bg); border-radius: 30px;
+            padding: 3.5rem; border: 1px solid var(--glass-border);
+            text-align: center; max-width: 900px; margin: 0 auto;
+        }
+        .about-text {
+            font-size: 1.1rem; line-height: 1.8; color: var(--text-secondary); margin-bottom: 1.5rem;
+        }
+        .about-highlight { color: var(--text-primary); font-weight: 600; }
+
+        /* --- Skills Section --- */
+        .skills-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem;
+        }
+        .skill-card {
+            background: var(--glass-bg); border: 1px solid var(--glass-border);
+            padding: 2.2rem; border-radius: 24px; transition: all 0.4s ease;
+            text-align: center;
+        }
+        .skill-card:hover {
+            transform: translateY(-10px); border-color: var(--accent-purple);
+            box-shadow: 0 15px 40px rgba(139, 92, 246, 0.15);
+        }
+        .skill-icon { width: 50px; height: 50px; color: var(--accent-purple); margin-bottom: 1.2rem; }
+        .skill-card h3 { font-family: 'Outfit', sans-serif; margin-bottom: 1rem; color: var(--accent-blue); }
+        .skill-list { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; }
+        .tag {
+            background: rgba(255, 255, 255, 0.04); padding: 5px 14px;
+            border-radius: 12px; font-size: 0.85rem; border: 1px solid var(--glass-border);
+        }
+
+        /* --- Projects Section --- */
+        .projects-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 2.5rem; }
+        .project-card {
+            background: var(--glass-bg); border-radius: 24px; border: 1px solid var(--glass-border);
+            overflow: hidden; transition: 0.3s;
+        }
+        .project-card:hover { transform: translateY(-10px); border-color: var(--accent-blue); }
+        .project-content { padding: 2rem; }
+        .project-content h3 { font-family: 'Outfit', sans-serif; color: var(--accent-purple); margin-bottom: 1rem; }
+        .project-content p { color: var(--text-secondary); line-height: 1.6; font-size: 0.95rem; }
+
+        /* --- Achievements Section --- */
+        .achievements-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 2rem; }
+        .achievement-card {
+            background: var(--glass-bg); border: 1px solid var(--glass-border);
+            padding: 2.5rem; border-radius: 20px; text-align: center;
+            border-bottom: 4px solid var(--accent-purple); transition: 0.3s;
+        }
+        .achievement-card:hover { transform: scale(1.05); }
+        .achievement-val { font-size: 2.8rem; font-weight: 800; font-family: 'Outfit'; display: block; }
+        .achievement-label { color: var(--text-secondary); font-size: 0.9rem; }
+
+        /* --- Certifications & Internships --- */
+        .certs-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 2.5rem; }
+        .cert-card {
+            display: flex; gap: 1.5rem; background: var(--glass-bg); padding: 2rem;
+            border-radius: 24px; border: 1px solid var(--glass-border); align-items: center;
+        }
+        .cert-icon { padding: 15px; background: rgba(139, 92, 246, 0.1); border-radius: 15px; color: var(--accent-purple); }
+        .cert-info h4 { font-family: 'Outfit'; font-size: 1.2rem; }
+        .cert-info p { color: var(--text-secondary); font-size: 0.9rem; }
+
+        /* --- Contact --- */
+        .contact-section { text-align: center; max-width: 800px; margin: 0 auto; }
+        .contact-box {
+            background: linear-gradient(135deg, rgba(139, 92, 246, 0.1), rgba(59, 130, 246, 0.1));
+            border-radius: 30px; padding: 4rem; border: 1px solid var(--glass-border);
+        }
+        .contact-links { display: flex; justify-content: center; gap: 2rem; margin-top: 2.5rem; flex-wrap: wrap; }
+        .contact-btn {
+            background: rgba(255, 255, 255, 0.04); padding: 1rem 1.8rem; border-radius: 18px;
+            text-decoration: none; color: white; display: flex; align-items: center; gap: 10px;
+            font-weight: 600; border: 1px solid var(--glass-border); transition: 0.3s;
+        }
+        .contact-btn:hover { background: var(--accent-purple); transform: translateY(-5px); }
+
+        /* --- Footer --- */
+        footer { padding: 3rem 10%; border-top: 1px solid var(--glass-border); text-align: center; color: var(--text-secondary); }
+
+        @media (max-width: 1024px) {
+            .hero { flex-direction: column; text-align: center; padding-top: 130px; }
+            .hero-left h1 { font-size: 3rem; }
+            .cta-group { justify-content: center; }
+            .profile-frame { width: 320px; height: 320px; margin-top: 3rem; }
+            nav { display: none; }
+        }
+    </style>
+</head>
+<body>
+
+    <canvas id="particles"></canvas>
+
+    <header>
+        <a href="#" class="logo">S. Pragathini</a>
+        <nav>
+            <ul>
+                <li><a href="#about">About</a></li>
+                <li><a href="#skills">Skills</a></li>
+                <li><a href="#projects">Projects</a></li>
+                <li><a href="#achievements">Achievements</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="hero" id="home">
+        <div class="hero-left">
+            <h1 class="text-gradient">DevOps Engineer | AI & Data Science Student | Website Developer</h1>
+            <p>Passionate about building scalable systems, automating workflows, and developing modern web applications using DevOps and Full Stack technologies.</p>
+            <div class="cta-group">
+                <a href="Pragathini cv.pdf" download="Pragathini_CV.pdf" class="btn btn-primary"><i data-lucide="download"></i> Download Resume</a>
+                <a href="https://www.linkedin.com/in/s-pragathini-7b95ab2a9" target="_blank" class="btn btn-outline"><i data-lucide="linkedin"></i> LinkedIn</a>
+            </div>
+        </div>
+        <div class="hero-right">
+            <div class="profile-frame">
+                <img src="portfolio.png.jpeg" alt="S. Pragathini">
+            </div>
+        </div>
+    </section>
+
+    <section id="about">
+        <h2 class="section-title">About Me</h2>
+        <div class="about-container">
+            <p class="about-text">
+                I am a highly motivated <span class="about-highlight">B.Tech Artificial Intelligence & Data Science</span> student (2023–2027) from <span class="about-highlight">Ponnaiyah Ramajayam Institute of Science and Technology (PRIST University)</span>.
+            </p>
+            <p class="about-text">
+                I specialize in the <span class="about-highlight">MERN stack</span>, UI/UX design, and modern web development, with a deep passion for <span class="about-highlight">DevOps</span> and <span class="about-highlight">Cybersecurity</span>. I thrive on creating automation, exploring cloud technologies, and building efficient, scalable systems.
+            </p>
+            <p class="about-text"><i>I designed and built my portfolio with modern UI concepts.</i></p>
+        </div>
+    </section>
+
+    <section id="skills">
+        <h2 class="section-title">Technical Expertise</h2>
+        <div class="skills-grid">
+            <div class="skill-card">
+                <i data-lucide="cloud" class="skill-icon"></i>
+                <h3>DevOps & Cloud</h3>
+                <div class="skill-list">
+                    <span class="tag">AWS (EC2, S3)</span>
+                    <span class="tag">CI/CD Pipelines</span>
+                    <span class="tag">Docker</span>
+                    <span class="tag">Linux/Shell</span>
+                    <span class="tag">Git & GitHub</span>
+                </div>
+            </div>
+            <div class="skill-card">
+                <i data-lucide="code" class="skill-icon"></i>
+                <h3>Full Stack & Web</h3>
+                <div class="skill-list">
+                    <span class="tag">HTML/CSS/JS</span>
+                    <span class="tag">Node.js</span>
+                    <span class="tag">Express.js</span>
+                    <span class="tag">REST APIs</span>
+                    <span class="tag">Responsive Design</span>
+                </div>
+            </div>
+            <div class="skill-card">
+                <i data-lucide="database" class="skill-icon"></i>
+                <h3>MERN Stack</h3>
+                <div class="skill-list">
+                    <span class="tag">MongoDB</span>
+                    <span class="tag">Express.js</span>
+                    <span class="tag">React.js</span>
+                    <span class="tag">Node.js</span>
+                </div>
+            </div>
+            <div class="skill-card">
+                <i data-lucide="shield" class="skill-icon"></i>
+                <h3>Cybersecurity</h3>
+                <div class="skill-list">
+                    <span class="tag">Nmap Scanning</span>
+                    <span class="tag">Vulnerability Analysis</span>
+                    <span class="tag">Protocols</span>
+                </div>
+            </div>
+            <div class="skill-card">
+                <i data-lucide="pencel-ruler" class="skill-icon"></i>
+                <h3>UI/UX</h3>
+                <div class="skill-list">
+                    <span class="tag">Figma</span>
+                    <span class="tag">Wireframing</span>
+                    <span class="tag">User-Centered Design</span>
+                </div>
+            </div>
+            <div class="skill-card">
+                <i data-lucide="terminal" class="skill-icon"></i>
+                <h3>Programming</h3>
+                <div class="skill-list">
+                    <span class="tag">Python</span>
+                    <span class="tag">JavaScript</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="projects">
+        <h2 class="section-title">Featured Projects</h2>
+        <div class="projects-grid">
+            <div class="project-card">
+                <div class="project-content">
+                    <h3>DevOps CI/CD Implementation</h3>
+                    <p>Built a robust CI/CD pipeline using GitHub and integrated automated deployment strategies for scalable architectures.</p>
+                </div>
+            </div>
+            <div class="project-card">
+                <div class="project-content">
+                    <h3>Cybersecurity & Network Analysis</h3>
+                    <p>Performed deep Nmap scanning and thorough vulnerability analysis to ensure secure network environments.</p>
+                </div>
+            </div>
+            <div class="project-card">
+                <div class="project-content">
+                    <h3>AIDS Awareness Project</h3>
+                    <p>Created a comprehensive digital awareness platform leveraging modern web technologies to spread education and awareness.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="achievements">
+        <h2 class="section-title">Achievements</h2>
+        <div class="achievements-grid">
+            <div class="achievement-card">
+                <span class="achievement-val">90%</span>
+                <span class="achievement-label">Overall Academic Score</span>
+            </div>
+            <div class="achievement-card">
+                <span class="achievement-val">CERT</span>
+                <span class="achievement-label">Cybersecurity Hands-on Workshop</span>
+            </div>
+            <div class="achievement-card">
+                <span class="achievement-val">3+</span>
+                <span class="achievement-label">Professional Internships</span>
+            </div>
+            <div class="achievement-card">
+                <span class="achievement-val">100%</span>
+                <span class="achievement-label">Disciplined & Consistent Student</span>
+            </div>
+        </div>
+    </section>
+
+    <section id="certs">
+        <h2 class="section-title">Certifications & Internships</h2>
+        <div class="certs-container">
+            <div class="cert-card">
+                <div class="cert-icon"><i data-lucide="shield-check"></i></div>
+                <div class="cert-info">
+                    <h4>Cybersecurity Workshop</h4>
+                    <p>Brintelli Tech Academy</p>
+                </div>
+            </div>
+            <div class="cert-card">
+                <div class="cert-icon"><i data-lucide="layers"></i></div>
+                <div class="cert-info">
+                    <h4>MERN Stack Internship</h4>
+                    <p>3 Months – NoviTech</p>
+                </div>
+            </div>
+            <div class="cert-card">
+                <div class="cert-icon"><i data-lucide="layout"></i></div>
+                <div class="cert-info">
+                    <h4>UI/UX Internship</h4>
+                    <p>1 Month – NoviTech</p>
+                </div>
+            </div>
+            <div class="cert-card">
+                <div class="cert-icon"><i data-lucide="code-2"></i></div>
+                <div class="cert-info">
+                    <h4>Full Stack Internship</h4>
+                    <p>1 Month – NoviTech</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact">
+        <h2 class="section-title">Get In Touch</h2>
+        <div class="contact-box">
+            <h3>Ready to collaborate on something amazing?</h3>
+            <div class="contact-links">
+                <a href="mailto:pragathisenthilkumar287@gmail.com" class="contact-btn"><i data-lucide="mail"></i> Email</a>
+                <a href="tel:+918838252018" class="contact-btn"><i data-lucide="phone"></i> Call</a>
+                <a href="https://www.linkedin.com/in/s-pragathini-7b95ab2a9" target="_blank" class="contact-btn"><i data-lucide="linkedin"></i> LinkedIn</a>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2026 S. Pragathini | DevOps Engineer & AI/DS Student</p>
+    </footer>
+
+    <script>
+        lucide.createIcons();
+
+        // Particles System
+        const canvas = document.getElementById('particles');
+        const ctx = canvas.getContext('2d');
+        let particles = [];
+        function resize() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
+        window.addEventListener('resize', resize);
+        resize();
+
+        class Particle {
+            constructor() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.size = Math.random() * 2 + 0.1;
+                this.speedX = Math.random() * 1 - 0.5;
+                this.speedY = Math.random() * 1 - 0.5;
+                this.opacity = Math.random() * 0.4 + 0.2;
+            }
+            update() {
+                this.x += this.speedX; this.y += this.speedY;
+                if (this.x > canvas.width) this.x = 0; if (this.x < 0) this.x = canvas.width;
+                if (this.y > canvas.height) this.y = 0; if (this.y < 0) this.y = canvas.height;
+            }
+            draw() {
+                ctx.fillStyle = `rgba(139, 92, 246, ${this.opacity})`;
+                ctx.beginPath(); ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2); ctx.fill();
+            }
+        }
+        function init() { particles = []; for(let i=0; i<80; i++) particles.push(new Particle()); }
+        function animate() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            particles.forEach(p => { p.update(); p.draw(); });
+            requestAnimationFrame(animate);
+        }
+        init(); animate();
+
+        // Reveal animations
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('section').forEach(section => {
+            section.style.opacity = '0';
+            section.style.transform = 'translateY(25px)';
+            section.style.transition = 'all 0.8s ease-out';
+            observer.observe(section);
+        });
+    </script>
+</body>
+</html>
